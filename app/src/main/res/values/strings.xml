@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Chess960</string>
+    <string name="ShowButton">Mostra le posizioni</string>
+    <string name="Descrizione">Di seguito viene generata una posizione random degli Scacchi Fisher:</string>
+    <string name="ColA">Colonna A: </string>
+    <string name="ColB">Colonna B: </string>
+    <string name="ColC">Colonna C: </string>
+    <string name="ColD">Colonna D: </string>
+    <string name="ColE">Colonna E: </string>
+    <string name="ColF">Colonna F: </string>
+    <string name="ColG">Colonna G: </string>
+    <string name="ColH">Colonna H: </string>
+    <string name="GotoRandom">Generatore posizioni random</string>
+    <string name="GotoRules">Info e regole</string>
+    <string name="GotoClock">Apri orologio</string>
+    <string name="TitleRules">Informazioni e Regole di gioco</string>
+    <string name="BodyRules">Il gioco Scacchi960, noto anche come Fischer Random Chess o Fischerandom
+        ("scacchi casuali" di Fischer), è una variante eterodossa del gioco degli scacchi. Il nome deriva
+        dal fatto che sono esattamente 960 le possibili posizioni di partenza della partita.\nI pezzi e lo
+        scopo del gioco coincidono con quelli degli scacchi ortodossi. Vengono disposti i pedoni nelle case
+        usuali e gli altri pezzi del bianco a caso, rispettando le seguenti regole: gli alfieri devono essere
+        uno su casa nera e uno su casa bianca, le torri devono essere una alla destra e una alla sinistra del re.
+        Dopo di ciò i pezzi del nero sono disposti simmetricamente.\nNell\'arrocco la posizione finale del re e della torre,
+        del lato scelto per l\'arrocco, deve essere come quella degli scacchi ortodossi.
+        Ad esempio, nel caso dell\'arrocco corto, il re finisce in g1 e la torre in f1, quali che siano le posizioni iniziali.
+        Sono mossi sia il re che la torre come nell\'arrocco degli scacchi ortodossi. Non è possibile arroccare catturando,
+        arroccare quando altri pezzi sono posizionati fra il re e la torre arroccante, arroccare quando si è sotto scacco
+        o arroccare in una posizione che porta ad essere sotto scacco. Inoltre il re non può arroccare attraversando
+        case minacciate dall\'avversario, né attraversando la torre se questa è sotto minaccia. Non può arroccare un re
+        o una torre che ha mosso (anche se poi è ritornato nella posizione iniziale).
+        Si può arroccare una sola volta durante la partita.\n\n</string>
+    <string name="ClockSet1">Orologio 1 (minuti)</string>
+    <string name="ClockSet2">Orologio 2 (minuti)</string>
+    <string name="IncSet1">Incremento 1 (secondi)</string>
+    <string name="IncSet2">Incremento 2 (secondi)</string>
+    <string name="btnSet">Imposta</string>
+</resources>
