@@ -27,16 +27,16 @@ class RandomActivity : AppCompatActivity(), IRandomView {
         presenter = RandomPresenter()
 
         btnShow = findViewById<View>(R.id.ShowButton) as Button
-        textA = findViewById<View>(R.id.textA) as TextView
-        textB = findViewById<View>(R.id.textB) as TextView
-        textC = findViewById<View>(R.id.textC) as TextView
-        textD = findViewById<View>(R.id.textD) as TextView
-        textE = findViewById<View>(R.id.textE) as TextView
-        textF = findViewById<View>(R.id.textF) as TextView
-        textG = findViewById<View>(R.id.textG) as TextView
-        textH = findViewById<View>(R.id.textH) as TextView
+        textA = findViewById(R.id.textA)
+        textB = findViewById(R.id.textB)
+        textC = findViewById(R.id.textC)
+        textD = findViewById(R.id.textD)
+        textE = findViewById(R.id.textE)
+        textF = findViewById(R.id.textF)
+        textG = findViewById(R.id.textG)
+        textH = findViewById(R.id.textH)
 
-        btnShow!!.setOnClickListener { presenter!!.generateRandomPos() }
+        btnShow?.setOnClickListener { presenter!!.generateRandomPos() }
     }
 
     override fun onStart() {
