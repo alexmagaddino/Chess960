@@ -1,4 +1,4 @@
-package com.alexm.chess960.randomPack
+package com.alexm.chess960.randompos
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.interfaces.RandomContract
 import com.example.chess960.chess960.R
 
-class RandomActivity : AppCompatActivity(), RandomContract.IView {
+class RandomActivity : AppCompatActivity(), RandomContract.IRandomView {
 
     private var textA: TextView? = null
     private var textB: TextView? = null

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.alexm.chess960.clockPack.ClockActivity
-import com.alexm.chess960.randomPack.RandomActivity
+import com.alexm.chess960.clockpack.ClockActivity
+import com.alexm.chess960.randompos.RandomActivity
 import com.example.chess960.chess960.R
 
 class MainMenu : AppCompatActivity() {

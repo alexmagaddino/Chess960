@@ -1,8 +1,7 @@
-package com.alexm.chess960.clockPack
+package com.alexm.chess960.clockpack
 
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
-import com.alexm.chess960.interfaces.ClockContract
 import com.alexm.chess960.secondsToHMS
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -11,13 +10,13 @@ import io.reactivex.disposables.Disposable
  * Created by alexm on 21/05/2018.
  */
 
-internal class ClockPresenter : ClockContract.IPresenter {
+internal class ClockPresenter : IClockPresenter {
 
     companion object {
         private const val FINISH_TEXT = "Tempo scaduto"
     }
 
-    private var view: ClockContract.IView? = null
+    private var view: IClockView? = null
     private val logic: ClockLogic
     private var disposer1: Disposable? = null
     private var disposer2: Disposable? = null
@@ -129,8 +128,8 @@ internal class ClockPresenter : ClockContract.IPresenter {
         pauseOrPlay++
     }
 
-    override fun setCountdown(timeControl1: Int, timeControl2: Int, timeInc1: Int, timeInc2: Int) {
-        logic.setTimeControls(timeControl1, timeControl2, timeInc1, timeInc2)
+    override fun setCountdown(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int) {
+        logic.setTimeControls(timeControl1, timeControl2, inc1, inc2)
         pauseClock1()
         pauseClock2()
         lastRunningClock = RunningClock.NONE
@@ -140,7 +139,7 @@ internal class ClockPresenter : ClockContract.IPresenter {
         view!!.setPausePlayState(PausePlayState.IDLE)
     }
 
-    override fun subscribe(view: ClockContract.IView) {
+    override fun subscribe(view: IClockView) {
         this.view = view
     }
 

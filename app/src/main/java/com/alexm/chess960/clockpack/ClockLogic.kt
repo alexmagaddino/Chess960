@@ -1,6 +1,5 @@
-package com.alexm.chess960.clockPack
+package com.alexm.chess960.clockpack
 
-import com.alexm.chess960.interfaces.ClockContract
 import com.alexm.chess960.secondsToHMS
 import io.reactivex.Observable
 import io.reactivex.Observable.defer
@@ -12,8 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by alexm on 21/05/2018.
  */
-
-internal class ClockLogic : ClockContract.ILogic {
+internal class ClockLogic : IClockLogic {
 
     var timeClock1: Int = 0
     var timeClock2: Int = 0

@@ -1,6 +1,5 @@
-package com.alexm.chess960.randomPack
+package com.alexm.chess960.randompos
 
-import com.alexm.chess960.interfaces.IRandomPos
 import java.util.*
 
 /**
