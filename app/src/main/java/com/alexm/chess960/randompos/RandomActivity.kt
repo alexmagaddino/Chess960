@@ -5,10 +5,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.alexm.chess960.interfaces.RandomContract
 import com.example.chess960.chess960.R
 
-class RandomActivity : AppCompatActivity(), RandomContract.IRandomView {
+class RandomActivity : AppCompatActivity(), IRandomView {
 
     private var textA: TextView? = null
     private var textB: TextView? = null
