@@ -1,14 +1,12 @@
-package com.alexm.chess960.randomPack
+package com.alexm.chess960.randompos
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.alexm.chess960.interfaces.RandomContract
+import androidx.appcompat.app.AppCompatActivity
 import com.example.chess960.chess960.R
 
-class RandomActivity : AppCompatActivity(), RandomContract.IView {
+class RandomActivity : AppCompatActivity(), IRandomView {
 
     private var textA: TextView? = null
     private var textB: TextView? = null
@@ -27,27 +25,29 @@ class RandomActivity : AppCompatActivity(), RandomContract.IView {
 
         presenter = RandomPresenter()
 
-        btnShow = findViewById<View>(R.id.ShowButton) as Button
-        textA = findViewById<View>(R.id.textA) as TextView
-        textB = findViewById<View>(R.id.textB) as TextView
-        textC = findViewById<View>(R.id.textC) as TextView
-        textD = findViewById<View>(R.id.textD) as TextView
-        textE = findViewById<View>(R.id.textE) as TextView
-        textF = findViewById<View>(R.id.textF) as TextView
-        textG = findViewById<View>(R.id.textG) as TextView
-        textH = findViewById<View>(R.id.textH) as TextView
+        btnShow = findViewById(R.id.ShowButton)
+        textA = findViewById(R.id.textA)
+        textB = findViewById(R.id.textB)
+        textC = findViewById(R.id.textC)
+        textD = findViewById(R.id.textD)
+        textE = findViewById(R.id.textE)
+        textF = findViewById(R.id.textF)
+        textG = findViewById(R.id.textG)
+        textH = findViewById(R.id.textH)
 
-        btnShow!!.setOnClickListener { presenter!!.generateRandomPos() }
+        btnShow?.setOnClickListener {
+            presenter?.generateRandomPos()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        presenter!!.subscribe(this)
+        presenter?.subscribe(this)
     }
 
     override fun onStop() {
         super.onStop()
-        presenter!!.unSubscribe()
+        presenter?.unSubscribe()
     }
 
     override fun showRandomPos(pos: RandomPos) {

@@ -1,6 +1,5 @@
-package com.alexm.chess960.clockPack
+package com.alexm.chess960.clockpack
 
-import com.alexm.chess960.interfaces.ClockContract
 import com.alexm.chess960.secondsToHMS
 import io.reactivex.Observable
 import io.reactivex.Observable.defer
@@ -12,8 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by alexm on 21/05/2018.
  */
-
-internal class ClockLogic : ClockContract.ILogic {
+internal class ClockLogic : IClockLogic {
 
     var timeClock1: Int = 0
     var timeClock2: Int = 0
@@ -21,19 +19,19 @@ internal class ClockLogic : ClockContract.ILogic {
     var increment2: Int = 0
 
     override fun addIncrement1():  Observable<String> {
-        return defer({
+        return defer {
             timeClock1 += increment1
             return@defer just("All green")
-        })
+        }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun addIncrement2(): Observable<String> {
-        return defer({
+        return defer {
             timeClock2 += increment2
             return@defer just("All green")
-        })
+        }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
     }

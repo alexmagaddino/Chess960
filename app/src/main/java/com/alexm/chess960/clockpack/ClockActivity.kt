@@ -1,19 +1,17 @@
-package com.alexm.chess960.clockPack
+package com.alexm.chess960.clockpack
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
-
-import com.alexm.chess960.interfaces.ClockContract
 import com.example.chess960.chess960.R
 
-class ClockActivity : Activity(), ClockContract.IView {
+class ClockActivity : AppCompatActivity(), IClockView {
 
     private var btnClock1: Button? = null
     private var btnClock2: Button? = null
@@ -63,7 +61,7 @@ class ClockActivity : Activity(), ClockContract.IView {
     }
 
     override fun showCountdown(remaningTime: String, clockSel: RunningClock) {
-        when(clockSel){
+        when (clockSel) {
             RunningClock.CLOCK_1 -> btnClock1!!.text = remaningTime
             RunningClock.CLOCK_2 -> btnClock2!!.text = remaningTime
             else -> throw Exception("It was called showCountdown with the NONE value of RunningClock enum set")
