@@ -21,19 +21,19 @@ internal class ClockLogic : ClockContract.ILogic {
     var increment2: Int = 0
 
     override fun addIncrement1():  Observable<String> {
-        return defer({
+        return defer {
             timeClock1 += increment1
             return@defer just("All green")
-        })
+        }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun addIncrement2(): Observable<String> {
-        return defer({
+        return defer {
             timeClock2 += increment2
             return@defer just("All green")
-        })
+        }
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
     }

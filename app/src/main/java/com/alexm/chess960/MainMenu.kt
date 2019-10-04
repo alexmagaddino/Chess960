@@ -2,9 +2,9 @@ package com.alexm.chess960
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.clockPack.ClockActivity
 import com.alexm.chess960.randomPack.RandomActivity
 import com.example.chess960.chess960.R

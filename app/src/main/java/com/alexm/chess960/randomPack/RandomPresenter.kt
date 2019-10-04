@@ -25,12 +25,7 @@ class RandomPresenter : RandomContract.IPresenter {
 
     override fun unSubscribe() {
         view = null
-        try {
-            disposer!!.dispose()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+        disposer?.dispose()
     }
 
     override fun generateRandomPos() {
