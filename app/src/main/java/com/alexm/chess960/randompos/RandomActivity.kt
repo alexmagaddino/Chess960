@@ -1,7 +1,6 @@
 package com.alexm.chess960.randompos
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +25,7 @@ class RandomActivity : AppCompatActivity(), IRandomView {
 
         presenter = RandomPresenter()
 
-        btnShow = findViewById<View>(R.id.ShowButton) as Button
+        btnShow = findViewById(R.id.ShowButton)
         textA = findViewById(R.id.textA)
         textB = findViewById(R.id.textB)
         textC = findViewById(R.id.textC)
@@ -36,17 +35,19 @@ class RandomActivity : AppCompatActivity(), IRandomView {
         textG = findViewById(R.id.textG)
         textH = findViewById(R.id.textH)
 
-        btnShow?.setOnClickListener { presenter!!.generateRandomPos() }
+        btnShow?.setOnClickListener {
+            presenter?.generateRandomPos()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        presenter!!.subscribe(this)
+        presenter?.subscribe(this)
     }
 
     override fun onStop() {
         super.onStop()
-        presenter!!.unSubscribe()
+        presenter?.unSubscribe()
     }
 
     override fun showRandomPos(pos: RandomPos) {

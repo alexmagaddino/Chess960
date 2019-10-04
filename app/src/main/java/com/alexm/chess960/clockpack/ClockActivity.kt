@@ -1,17 +1,17 @@
 package com.alexm.chess960.clockpack
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
 import com.example.chess960.chess960.R
 
-class ClockActivity : Activity(), IClockView {
+class ClockActivity : AppCompatActivity(), IClockView {
 
     private var btnClock1: Button? = null
     private var btnClock2: Button? = null
