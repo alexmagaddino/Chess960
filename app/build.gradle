@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.alexm.chess960"
+        applicationId "com.alexm.chess960"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.8"
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
