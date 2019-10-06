@@ -23,7 +23,7 @@
             android:name="com.alexm.chess960.randompos.RandomActivity"
             android:parentActivityName="com.alexm.chess960.MainMenu" />
         <activity android:name="com.alexm.chess960.clockpack.ClockActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

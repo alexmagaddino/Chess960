@@ -17,24 +17,21 @@ internal class ClockPresenter : IClockPresenter {
     }
 
     private var view: IClockView? = null
-    private val logic: ClockLogic
-    private val disposers = arrayOf<Disposable?>()
-    //this field need to know if is in pause or in play and who was the last clock that runnning before the pause
+    private val logic = ClockLogic()
+    private var setCountdownDisposer: Disposable? = null
+    private val clockDisposers = Array<Disposable?>(2) { null }
+    //this field need to know if is in pause or in play
+    // and who was the last clock that runnning before the pause
     private var pauseOrPlay: Int = 0
     private var lastRunningClock: RunningClock = RunningClock.NONE
 
-    init {
-        pauseOrPlay = 0
-        lastRunningClock = RunningClock.NONE
-        logic = ClockLogic()
-    }
 
     override fun startCountdown(clockSel: RunningClock) {
         if (clockSel == RunningClock.CLOCK_1) {
             logic.tick1().subscribe(object : Observer<String> {
 
                 override fun onSubscribe(d: Disposable) {
-                    disposers[0] = d
+                    clockDisposers[0] = d
                     pauseClock2()
                     logic.addIncrement2().subscribe()
                     lastRunningClock = RunningClock.CLOCK_1
@@ -63,7 +60,7 @@ internal class ClockPresenter : IClockPresenter {
             logic.tick2().subscribe(object : Observer<String> {
 
                 override fun onSubscribe(d: Disposable) {
-                    disposers[1] = d
+                    clockDisposers[1] = d
                     pauseClock1()
                     logic.addIncrement1().subscribe()
                     lastRunningClock = RunningClock.CLOCK_2
@@ -92,11 +89,11 @@ internal class ClockPresenter : IClockPresenter {
     }
 
     override fun pauseClock1() {
-        disposers[0]?.dispose()
+        clockDisposers[0]?.dispose()
     }
 
     override fun pauseClock2() {
-        disposers[1]?.dispose()
+        clockDisposers[1]?.dispose()
     }
 
     /*this method control the pauseOrPlay field:
@@ -124,14 +121,17 @@ internal class ClockPresenter : IClockPresenter {
     }
 
     override fun setCountdown(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int) {
-        logic.setTimeControls(timeControl1, timeControl2, inc1, inc2)
-        pauseClock1()
-        pauseClock2()
-        lastRunningClock = RunningClock.NONE
-        view!!.restartButtons(timeControl1.secondsToHMS(), timeControl2.secondsToHMS())
-        view!!.enableSetButton(true)
-        view!!.enableHomeButton(true)
-        view!!.setPausePlayState(PausePlayState.IDLE)
+        setCountdownDisposer = logic.setTimeControls(timeControl1, timeControl2, inc1, inc2).subscribe({
+            pauseClock1()
+            pauseClock2()
+            lastRunningClock = RunningClock.NONE
+            view!!.restartButtons(timeControl1.secondsToHMS(), timeControl2.secondsToHMS())
+            view!!.enableSetButton(true)
+            view!!.enableHomeButton(true)
+            view!!.setPausePlayState(PausePlayState.IDLE)
+        },{
+            it.printStackTrace()
+        })
     }
 
     override fun subscribe(view: IClockView) {
@@ -140,7 +140,8 @@ internal class ClockPresenter : IClockPresenter {
 
     override fun unSubscribe() {
         view = null
-        disposers.forEach {
+        setCountdownDisposer?.dispose()
+        clockDisposers.forEach {
             it?.dispose()
         }
     }

@@ -6,6 +6,8 @@ package com.alexm.chess960.clockpack
  */
 class Clock(private var timer: Int, private var increment: Int) {
 
+    fun getTime(): Long = (timer + 1).toLong()
+
     fun setTimer(timer: Int) {
         this.timer = timer
     }

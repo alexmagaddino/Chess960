@@ -18,7 +18,6 @@ interface IClockView {
     fun setPausePlayState(state: PausePlayState)
     fun finishCountdown()
     fun restartButtons(initText1: String, initText2: String)
-    fun createSettingsDialog()
 }
 
 interface IClockPresenter {

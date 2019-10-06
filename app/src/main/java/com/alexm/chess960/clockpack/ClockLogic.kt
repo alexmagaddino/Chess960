@@ -55,7 +55,7 @@ internal class ClockLogic : IClockLogic {
     override fun tick1(): Observable<String> {
         return Observable.interval(300, 1000, TimeUnit.MILLISECONDS, Schedulers.computation())
                 .map { clock1.tick().secondsToHMS() }
-//                .take((timeClock1 + 1).toLong())
+                .take(clock1.getTime())
                 .subscribeOn(Schedulers.computation())
                 .unsubscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +64,7 @@ internal class ClockLogic : IClockLogic {
     override fun tick2(): Observable<String> {
         return Observable.interval(300, 1000, TimeUnit.MILLISECONDS, Schedulers.computation())
                 .map { clock2.tick().secondsToHMS() }
-//                .take((timeClock2 + 1).toLong())
+                .take(clock2.getTime())
                 .subscribeOn(Schedulers.computation())
                 .unsubscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())

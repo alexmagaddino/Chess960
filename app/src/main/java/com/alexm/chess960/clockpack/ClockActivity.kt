@@ -11,7 +11,7 @@ import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
 import com.example.chess960.chess960.R
 
-class ClockActivity : AppCompatActivity(), IClockView {
+class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
 
     private var btnClock1: Button? = null
     private var btnClock2: Button? = null
@@ -41,12 +41,31 @@ class ClockActivity : AppCompatActivity(), IClockView {
         btnRestart = findViewById(R.id.btnRestart)
         btnSettings = findViewById(R.id.btnSettings)
 
-        btnClock1!!.setOnClickListener { presenter!!.startCountdown(RunningClock.CLOCK_2) }
-        btnClock2!!.setOnClickListener { presenter!!.startCountdown(RunningClock.CLOCK_1) }
-        btnHome!!.setOnClickListener { finish() }
-        btnPausePlay!!.setOnClickListener { presenter!!.pausePlay() }
-        btnRestart!!.setOnClickListener { presenter!!.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2) }
-        btnSettings!!.setOnClickListener { createSettingsDialog() }
+        btnClock1!!.setOnClickListener(this)
+        btnClock2!!.setOnClickListener(this)
+        btnHome!!.setOnClickListener(this)
+        btnPausePlay!!.setOnClickListener(this)
+        btnRestart!!.setOnClickListener(this)
+        btnSettings!!.setOnClickListener (this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            btnClock1?.id -> presenter!!.startCountdown(RunningClock.CLOCK_2)
+            btnClock2?.id -> presenter!!.startCountdown(RunningClock.CLOCK_1)
+
+            btnHome?.id -> finish()
+            btnPausePlay?.id -> presenter!!.pausePlay()
+            btnRestart?.id -> {
+                presenter!!.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
+            }
+
+//            btnSettings?.id -> createSettingsDialog()
+        }
+    }
+
+    override fun onBackPressed() {
+        //nothing
     }
 
     override fun onStart() {
@@ -109,7 +128,7 @@ class ClockActivity : AppCompatActivity(), IClockView {
         btnClock2!!.text = initText2
     }
 
-    override fun createSettingsDialog() {
+    private fun createSettingsDialog() {
         val settingsDialog = Dialog(this)
         settingsDialog.setTitle("Imposta Orologi")
         settingsDialog.setContentView(R.layout.clock_settings)
