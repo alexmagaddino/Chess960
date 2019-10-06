@@ -1,11 +1,9 @@
 package com.alexm.chess960.clockpack
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
@@ -28,6 +26,8 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
     private var timeInc1 = 0
     private var timeInc2 = 0
 
+    private var clockFragment: ClockSettingsDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
@@ -46,7 +46,7 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
         btnHome!!.setOnClickListener(this)
         btnPausePlay!!.setOnClickListener(this)
         btnRestart!!.setOnClickListener(this)
-        btnSettings!!.setOnClickListener (this)
+        btnSettings!!.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -129,27 +129,36 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
     }
 
     private fun createSettingsDialog() {
-        val settingsDialog = Dialog(this)
-        settingsDialog.setTitle("Imposta Orologi")
-        settingsDialog.setContentView(R.layout.clock_settings)
-        val edtTime1 = settingsDialog.findViewById<EditText>(R.id.SetClock1)
-        val edtTime2 = settingsDialog.findViewById<EditText>(R.id.SetClock2)
-        val edtInc1 = settingsDialog.findViewById<EditText>(R.id.SetInc1)
-        val edtInc2 = settingsDialog.findViewById<EditText>(R.id.SetInc2)
-        settingsDialog.findViewById<View>(R.id.btnSet).setOnClickListener {
-            if (edtTime1.text.toString().isEmpty())
-                timeControl1 = Integer.valueOf(edtTime1.text.toString()) * 60
-            if (edtTime2.text.toString().isEmpty())
-                timeControl2 = Integer.valueOf(edtTime2.text.toString()) * 60
+        if (clockFragment == null) {
+            clockFragment = ClockSettingsDialog()
+            supportFragmentManager.beginTransaction()
+                    .add(clockFragment!!, ClockSettingsDialog.TAG)
+                    .commit()
 
-            presenter!!.setCountdown(timeControl1, timeControl2,
-                    if (edtInc1.text.toString().isEmpty()) Integer.valueOf(edtInc1.text.toString()) else 0,
-                    if (edtInc2.text.toString().isEmpty()) Integer.valueOf(edtInc2.text.toString()) else 0)
-
-            enableRestartButton(true)
-            enableHomeButton(true)
-            settingsDialog.dismiss()
+            findViewById<View>(R.id.container).visibility = View.VISIBLE
         }
-        settingsDialog.show()
+
+//        val settingsDialog = Dialog(this)
+//        settingsDialog.setTitle("Imposta Orologi")
+//        settingsDialog.setContentView(R.layout.clock_settings)
+//        val edtTime1 = settingsDialog.findViewById<EditText>(R.id.SetClock1)
+//        val edtTime2 = settingsDialog.findViewById<EditText>(R.id.SetClock2)
+//        val edtInc1 = settingsDialog.findViewById<EditText>(R.id.SetInc1)
+//        val edtInc2 = settingsDialog.findViewById<EditText>(R.id.SetInc2)
+//        settingsDialog.findViewById<View>(R.id.btnSet).setOnClickListener {
+//            if (edtTime1.text.toString().isEmpty())
+//                timeControl1 = Integer.valueOf(edtTime1.text.toString()) * 60
+//            if (edtTime2.text.toString().isEmpty())
+//                timeControl2 = Integer.valueOf(edtTime2.text.toString()) * 60
+//
+//            presenter!!.setCountdown(timeControl1, timeControl2,
+//                    if (edtInc1.text.toString().isEmpty()) Integer.valueOf(edtInc1.text.toString()) else 0,
+//                    if (edtInc2.text.toString().isEmpty()) Integer.valueOf(edtInc2.text.toString()) else 0)
+//
+//            enableRestartButton(true)
+//            enableHomeButton(true)
+//            settingsDialog.dismiss()
+//        }
+//        settingsDialog.show()
     }
 }

@@ -37,4 +37,6 @@
     <string name="pause_play"><![CDATA[Pause&Play]]></string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <string name="set_clock">Imposta Orologi</string>
+    <string name="set">Imposta</string>
 </resources>
