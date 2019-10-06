@@ -27,63 +27,42 @@ internal class ClockPresenter : IClockPresenter {
 
 
     override fun startCountdown(clockSel: RunningClock) {
+
         if (clockSel == RunningClock.CLOCK_1) {
-            logic.tick1().subscribe(object : Observer<String> {
-
-                override fun onSubscribe(d: Disposable) {
-                    clockDisposers[0] = d
-                    pauseClock2()
-                    logic.addIncrement2().subscribe()
-                    lastRunningClock = RunningClock.CLOCK_1
-                    view!!.enableButton1(true)
-                    view!!.enableButton2(false)
-                    view!!.enableHomeButton(false)
-                    view!!.enableRestartButton(false)
-                    view!!.enableSetButton(false)
-                    view!!.setPausePlayState(PausePlayState.PAUSE)
-                }
-
-                override fun onNext(remaningTime: String) {
-                    view!!.showCountdown(remaningTime, clockSel)
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-
-                override fun onComplete() {
-                    view!!.showCountdown(FINISH_TEXT, clockSel)
-                    view!!.finishCountdown()
-                }
+            clockDisposers[0] = logic.tick1().subscribe({ remainingTime ->
+                view!!.showCountdown(remainingTime, clockSel)
+            }, {
+                it.printStackTrace()
+            }, {
+                view!!.showCountdown(FINISH_TEXT, clockSel)
+                view!!.finishCountdown()
+            }, {
+                pauseClock2()
+                logic.addIncrement2().subscribe()
+                lastRunningClock = RunningClock.CLOCK_1
+                view!!.enableButton1(true)
+                view!!.enableButton2(false)
+                view!!.enableHomeButton(false)
+                view!!.enableRestartButton(false)
+                view!!.enableSetButton(false)
+                view!!.setPausePlayState(PausePlayState.PAUSE)
             })
         } else {
-            logic.tick2().subscribe(object : Observer<String> {
-
-                override fun onSubscribe(d: Disposable) {
-                    clockDisposers[1] = d
-                    pauseClock1()
-                    logic.addIncrement1().subscribe()
-                    lastRunningClock = RunningClock.CLOCK_2
-                    view!!.enableButton1(false)
-                    view!!.enableButton2(true)
-                    view!!.enableHomeButton(false)
-                    view!!.enableRestartButton(false)
-                    view!!.enableSetButton(false)
-                    view!!.setPausePlayState(PausePlayState.PAUSE)
-                }
-
-                override fun onNext(remaningTime: String) {
-                    view!!.showCountdown(remaningTime, clockSel)
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-
-                override fun onComplete() {
-                    view!!.showCountdown(FINISH_TEXT, clockSel)
-                    view!!.finishCountdown()
-                }
+            clockDisposers[1] = logic.tick2().subscribe({ remainingTime ->
+                view!!.showCountdown(remainingTime, clockSel)
+            }, { it.printStackTrace() }, {
+                view!!.showCountdown(FINISH_TEXT, clockSel)
+                view!!.finishCountdown()
+            }, {
+                pauseClock1()
+                logic.addIncrement1().subscribe()
+                lastRunningClock = RunningClock.CLOCK_2
+                view!!.enableButton1(false)
+                view!!.enableButton2(true)
+                view!!.enableHomeButton(false)
+                view!!.enableRestartButton(false)
+                view!!.enableSetButton(false)
+                view!!.setPausePlayState(PausePlayState.PAUSE)
             })
         }
     }
@@ -129,7 +108,7 @@ internal class ClockPresenter : IClockPresenter {
             view!!.enableSetButton(true)
             view!!.enableHomeButton(true)
             view!!.setPausePlayState(PausePlayState.IDLE)
-        },{
+        }, {
             it.printStackTrace()
         })
     }
