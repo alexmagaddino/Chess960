@@ -18,14 +18,14 @@
             android:layout_margin="8dp"
             android:textSize="60sp" />
 
+        <include layout="@layout/clock_menu_bar" />
+
         <Button
             android:id="@+id/btnClock2"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_margin="8dp"
             android:textSize="60sp" />
-
-        <include layout="@layout/clock_menu_bar" />
 
     </LinearLayout>
 
