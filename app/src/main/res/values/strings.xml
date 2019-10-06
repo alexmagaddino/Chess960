@@ -34,4 +34,7 @@
     <string name="IncSet1">Incremento 1 (secondi)</string>
     <string name="IncSet2">Incremento 2 (secondi)</string>
     <string name="btnSet">Imposta</string>
+    <string name="pause_play"><![CDATA[Pause&Play]]></string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
 </resources>

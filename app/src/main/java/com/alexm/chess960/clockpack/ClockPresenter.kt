@@ -18,8 +18,7 @@ internal class ClockPresenter : IClockPresenter {
 
     private var view: IClockView? = null
     private val logic: ClockLogic
-    private var disposer1: Disposable? = null
-    private var disposer2: Disposable? = null
+    private val disposers = arrayOf<Disposable?>()
     //this field need to know if is in pause or in play and who was the last clock that runnning before the pause
     private var pauseOrPlay: Int = 0
     private var lastRunningClock: RunningClock = RunningClock.NONE
@@ -35,7 +34,7 @@ internal class ClockPresenter : IClockPresenter {
             logic.tick1().subscribe(object : Observer<String> {
 
                 override fun onSubscribe(d: Disposable) {
-                    disposer1 = d
+                    disposers[0] = d
                     pauseClock2()
                     logic.addIncrement2().subscribe()
                     lastRunningClock = RunningClock.CLOCK_1
@@ -64,7 +63,7 @@ internal class ClockPresenter : IClockPresenter {
             logic.tick2().subscribe(object : Observer<String> {
 
                 override fun onSubscribe(d: Disposable) {
-                    disposer2 = d
+                    disposers[1] = d
                     pauseClock1()
                     logic.addIncrement1().subscribe()
                     lastRunningClock = RunningClock.CLOCK_2
@@ -93,15 +92,11 @@ internal class ClockPresenter : IClockPresenter {
     }
 
     override fun pauseClock1() {
-        if (disposer1 != null) {
-            disposer1!!.dispose()
-        }
+        disposers[0]?.dispose()
     }
 
     override fun pauseClock2() {
-        if (disposer2 != null) {
-            disposer2!!.dispose()
-        }
+        disposers[1]?.dispose()
     }
 
     /*this method control the pauseOrPlay field:
@@ -145,11 +140,8 @@ internal class ClockPresenter : IClockPresenter {
 
     override fun unSubscribe() {
         view = null
-        try {
-            disposer1!!.dispose()
-            disposer2!!.dispose()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        disposers.forEach {
+            it?.dispose()
         }
     }
 }

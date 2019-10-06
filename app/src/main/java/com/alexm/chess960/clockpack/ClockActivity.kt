@@ -32,14 +32,14 @@ class ClockActivity : AppCompatActivity(), IClockView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
 
-        btnClock1 = findViewById<View>(R.id.btnClock1) as Button
-        btnClock2 = findViewById<View>(R.id.btnClock2) as Button
-        btnHome = findViewById<View>(R.id.btnHome) as Button
-        btnPausePlay = findViewById<View>(R.id.btnPausePlay) as Button
-        btnRestart = findViewById<View>(R.id.btnRestart) as Button
-        btnSettings = findViewById<View>(R.id.btnSettings) as Button
-
         presenter = ClockPresenter()
+
+        btnClock1 = findViewById(R.id.btnClock1)
+        btnClock2 = findViewById(R.id.btnClock2)
+        btnHome = findViewById(R.id.btnHome)
+        btnPausePlay = findViewById(R.id.btnPausePlay)
+        btnRestart = findViewById(R.id.btnRestart)
+        btnSettings = findViewById(R.id.btnSettings)
 
         btnClock1!!.setOnClickListener { presenter!!.startCountdown(RunningClock.CLOCK_2) }
         btnClock2!!.setOnClickListener { presenter!!.startCountdown(RunningClock.CLOCK_1) }
@@ -91,9 +91,9 @@ class ClockActivity : AppCompatActivity(), IClockView {
     @SuppressLint("SetTextI18n")
     override fun setPausePlayState(state: PausePlayState) {
         when (state) {
-            PausePlayState.IDLE -> btnPausePlay!!.text = "Pause&Play"
-            PausePlayState.PLAY -> btnPausePlay!!.text = "Play"
-            PausePlayState.PAUSE -> btnPausePlay!!.text = "Pause"
+            PausePlayState.IDLE -> btnPausePlay?.setText(R.string.pause_play)
+            PausePlayState.PLAY -> btnPausePlay?.setText(R.string.play)
+            PausePlayState.PAUSE -> btnPausePlay?.setText(R.string.pause)
         }
     }
 

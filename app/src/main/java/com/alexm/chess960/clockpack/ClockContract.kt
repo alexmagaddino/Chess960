@@ -2,6 +2,7 @@ package com.alexm.chess960.clockpack
 
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**
@@ -35,5 +36,5 @@ interface IClockLogic {
     fun tick2(): Observable<String>
     fun addIncrement1(): Observable<String>
     fun addIncrement2(): Observable<String>
-    fun setTimeControls(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int)
+    fun setTimeControls(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int): Completable
 }
