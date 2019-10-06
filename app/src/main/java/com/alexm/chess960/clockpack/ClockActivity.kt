@@ -132,7 +132,7 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
         if (clockFragment == null) {
             clockFragment = ClockSettingsDialog()
             supportFragmentManager.beginTransaction()
-                    .add(clockFragment!!, ClockSettingsDialog.TAG)
+                    .replace(R.id.container, clockFragment!!, ClockSettingsDialog.TAG)
                     .commit()
 
             findViewById<View>(R.id.container).visibility = View.VISIBLE
