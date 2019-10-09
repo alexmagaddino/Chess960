@@ -39,4 +39,7 @@
     <string name="pause">Pause</string>
     <string name="set_clock">Imposta Orologi</string>
     <string name="set">Imposta</string>
+    <string name="home">Home</string>
+    <string name="restart">Restart</string>
+    <string name="settings">Set</string>
 </resources>

@@ -60,7 +60,7 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
                 presenter!!.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
             }
 
-//            btnSettings?.id -> createSettingsDialog()
+            btnSettings?.id -> createSettingsDialog()
         }
     }
 
