@@ -1,49 +1,34 @@
 package com.alexm.chess960.randompos
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 
 /**
  * Created by alexm on 04/10/2019
  */
-interface IRandomView {
+interface RandomView {
     fun showRandomPos(pos: RandomPos)
 }
 
-interface IRandomPresenter {
-    fun subscribe(view: IRandomView)
-    fun unSubscribe()
-    fun generateRandomPos()
-}
+class RandomPresenter(private val logic: RandomLogic) {
 
-interface IRandomLogic {
-    fun generateRandomPos(): Observable<RandomPos>
-}
-
-class RandomPresenter : IRandomPresenter {
-
-    private var view: IRandomView? = null
-    private val logic: IRandomLogic
+    private var view: RandomView? = null
     private var disposer: Disposable? = null
 
-    init {
-        logic = RandomLogic()
-    }
-
-    override fun subscribe(view: IRandomView) {
+    fun subscribe(view: RandomView) {
         this.view = view
     }
 
-    override fun unSubscribe() {
+    fun unSubscribe() {
         view = null
         disposer?.dispose()
     }
 
-    override fun generateRandomPos() {
+    fun generateRandomPos() {
         logic.generateRandomPos().subscribe(object : Observer<RandomPos> {
 
             override fun onSubscribe(d: Disposable) {
@@ -65,9 +50,8 @@ class RandomPresenter : IRandomPresenter {
     }
 }
 
-class RandomLogic : IRandomLogic {
-
-    override fun generateRandomPos(): Observable<RandomPos> {
+class RandomLogic {
+    fun generateRandomPos(): Observable<RandomPos> {
         return Observable.defer {
             val pos = RandomPos()
             pos.shuffle()

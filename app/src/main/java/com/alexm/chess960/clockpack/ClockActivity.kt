@@ -3,22 +3,18 @@ package com.alexm.chess960.clockpack
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
 import com.example.chess960.chess960.R
+import kotlinx.android.synthetic.main.activity_clock.*
+import kotlinx.android.synthetic.main.clock_menu_bar.*
+import org.koin.android.ext.android.inject
 
-class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
+class ClockActivity : AppCompatActivity(), ClockView {
 
-    private var btnClock1: Button? = null
-    private var btnClock2: Button? = null
-    private var btnHome: Button? = null
-    private var btnPausePlay: Button? = null
-    private var btnRestart: Button? = null
-    private var btnSettings: Button? = null
-
-    private var presenter: ClockPresenter? = null
+    private val presenter by inject<ClockPresenter>()
 
     //I have to change the static init with the use of the shared Prefs
     private var timeControl1 = 300
@@ -32,35 +28,24 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
 
-        presenter = ClockPresenter()
-
-        btnClock1 = findViewById(R.id.btnClock1)
-        btnClock2 = findViewById(R.id.btnClock2)
-        btnHome = findViewById(R.id.btnHome)
-        btnPausePlay = findViewById(R.id.btnPausePlay)
-        btnRestart = findViewById(R.id.btnRestart)
-        btnSettings = findViewById(R.id.btnSettings)
-
-        btnClock1!!.setOnClickListener(this)
-        btnClock2!!.setOnClickListener(this)
-        btnHome!!.setOnClickListener(this)
-        btnPausePlay!!.setOnClickListener(this)
-        btnRestart!!.setOnClickListener(this)
-        btnSettings!!.setOnClickListener(this)
+        btnClock1.setOnClickListener(onClick)
+        btnClock2.setOnClickListener(onClick)
+        btnHome.setOnClickListener(onClick)
+        btnPausePlay.setOnClickListener(onClick)
+        btnRestart.setOnClickListener(onClick)
+        btnSettings.setOnClickListener(onClick)
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            btnClock1?.id -> presenter!!.startCountdown(RunningClock.CLOCK_2)
-            btnClock2?.id -> presenter!!.startCountdown(RunningClock.CLOCK_1)
+    private val onClick = fun(v: View?) {
+        when (v) {
+            btnClock1 -> presenter.startCountdown(RunningClock.CLOCK_2)
+            btnClock2 -> presenter.startCountdown(RunningClock.CLOCK_1)
 
-            btnHome?.id -> finish()
-            btnPausePlay?.id -> presenter!!.pausePlay()
-            btnRestart?.id -> {
-                presenter!!.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
-            }
+            btnPausePlay -> presenter.pausePlay()
+            btnRestart -> presenter.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
 
-            btnSettings?.id -> createSettingsDialog()
+            btnHome -> finish()
+            btnSettings -> createSettingsDialog()
         }
     }
 
@@ -70,13 +55,13 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        presenter!!.subscribe(this)
-        presenter!!.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
+        presenter.subscribe(this)
+        presenter.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
     }
 
     override fun onStop() {
         super.onStop()
-        presenter!!.unSubscribe()
+        presenter.unSubscribe()
     }
 
     override fun showCountdown(remaningTime: String, clockSel: RunningClock) {
@@ -88,23 +73,23 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
     }
 
     override fun enableButton1(enabled: Boolean) {
-        btnClock1!!.isEnabled = enabled
+        btnClock1.isEnabled = enabled
     }
 
     override fun enableButton2(enabled: Boolean) {
-        btnClock2!!.isEnabled = enabled
+        btnClock2.isEnabled = enabled
     }
 
     override fun enableHomeButton(enabled: Boolean) {
-        btnHome!!.isEnabled = enabled
+        btnHome.isEnabled = enabled
     }
 
     override fun enableSetButton(enabled: Boolean) {
-        btnSettings!!.isEnabled = enabled
+        btnSettings.isEnabled = enabled
     }
 
     override fun enableRestartButton(enabled: Boolean) {
-        btnRestart!!.isEnabled = enabled
+        btnRestart.isEnabled = enabled
     }
 
     @SuppressLint("SetTextI18n")
@@ -124,18 +109,19 @@ class ClockActivity : AppCompatActivity(), IClockView, View.OnClickListener {
     override fun restartButtons(initText1: String, initText2: String) {
         enableButton1(true)
         enableButton2(true)
-        btnClock1!!.text = initText1
-        btnClock2!!.text = initText2
+        btnClock1.text = initText1
+        btnClock2.text = initText2
     }
 
     private fun createSettingsDialog() {
         if (clockFragment == null) {
-            clockFragment = ClockSettingsDialog()
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, clockFragment!!, ClockSettingsDialog.TAG)
-                    .commit()
+            clockFragment = ClockSettingsDialog().also {
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, it, ClockSettingsDialog.TAG)
+                        .commit()
+            }
 
-            findViewById<View>(R.id.container).visibility = View.VISIBLE
+            container.visibility = VISIBLE
         }
 
 //        val settingsDialog = Dialog(this)

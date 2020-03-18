@@ -1,198 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent" >
-
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/Descrizione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="25dp"
+        style="@style/Title"
         android:text="@string/Descrizione"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/ColA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Descrizione"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
+        android:layout_marginTop="48dp"
         android:text="@string/ColA"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Descrizione" />
 
     <TextView
         android:id="@+id/textA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Descrizione"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColA"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColA"
+        app:layout_constraintTop_toTopOf="@+id/ColA" />
 
     <TextView
         android:id="@+id/ColB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColA"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColB"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColA" />
 
     <TextView
         android:id="@+id/textB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColA"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColB"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColB"
+        app:layout_constraintTop_toTopOf="@+id/ColB" />
 
     <TextView
         android:id="@+id/ColC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColB"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColC"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColB" />
 
     <TextView
         android:id="@+id/textC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColB"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColC"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColC"
+        app:layout_constraintTop_toTopOf="@+id/ColC" />
 
     <TextView
         android:id="@+id/ColD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColC"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColD"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColC" />
 
     <TextView
         android:id="@+id/textD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColC"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColD"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColD"
+        app:layout_constraintTop_toTopOf="@+id/ColD" />
 
     <TextView
         android:id="@+id/ColE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColD"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColE"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColD" />
 
     <TextView
         android:id="@+id/textE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColD"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColE"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColE"
+        app:layout_constraintTop_toTopOf="@+id/ColE" />
 
     <TextView
         android:id="@+id/ColF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColE"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColF"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColE" />
 
     <TextView
         android:id="@+id/textF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColE"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColF"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColF"
+        app:layout_constraintTop_toTopOf="@+id/ColF" />
 
     <TextView
         android:id="@+id/ColG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColF"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColG"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColF" />
 
     <TextView
         android:id="@+id/textG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColF"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColG"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColG"
+        app:layout_constraintTop_toTopOf="@+id/ColG" />
 
     <TextView
         android:id="@+id/ColH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColG"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
+        style="@style/Columns"
         android:text="@string/ColH"
-        android:textSize="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColG" />
 
     <TextView
         android:id="@+id/textH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ColG"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/ColH"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColH"
+        app:layout_constraintTop_toTopOf="@+id/ColH" />
 
     <Button
-        android:id="@+id/ShowButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_show"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ColH"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_margin="16dp"
         android:text="@string/ShowButton"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout >
+</androidx.constraintlayout.widget.ConstraintLayout>

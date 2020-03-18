@@ -14,7 +14,7 @@ import com.example.chess960.chess960.R
  */
 class ClockSettingsDialog : Fragment() {
 
-    companion object{
+    companion object {
         val TAG = ClockSettingsDialog::class.java.name
     }
 

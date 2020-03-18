@@ -3,6 +3,7 @@
     package="com.example.chess960.chess960">
 
     <application
+        android:name="com.alexm.chess960.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +13,8 @@
         <activity android:name="com.alexm.chess960.MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,8 +24,9 @@
         <activity
             android:name="com.alexm.chess960.randompos.RandomActivity"
             android:parentActivityName="com.alexm.chess960.MainMenu" />
-        <activity android:name="com.alexm.chess960.clockpack.ClockActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.alexm.chess960.clockpack.ClockActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/GotoRandom"
+        android:id="@+id/goto_random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,7 +18,7 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/GotoClock"
+        android:id="@+id/goto_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/GotoRules"
+        android:id="@+id/goto_rules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,6 +38,5 @@
         android:layout_marginEnd="32dp"
         android:text="@string/GotoRules"
         android:textSize="20sp" />
-
 
 </LinearLayout>
