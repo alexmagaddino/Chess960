@@ -2,6 +2,8 @@ package com.alexm.chess960.randompos
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.alexm.chess960.randompos.mvp.RandomPresenter
+import com.alexm.chess960.randompos.mvp.RandomView
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.actitivity_random.*
 import org.koin.android.ext.android.inject

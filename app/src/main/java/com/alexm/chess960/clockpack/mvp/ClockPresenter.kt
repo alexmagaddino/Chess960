@@ -1,4 +1,4 @@
-package com.alexm.chess960.clockpack
+package com.alexm.chess960.clockpack.mvp
 
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock

@@ -1,5 +1,6 @@
-package com.alexm.chess960.clockpack
+package com.alexm.chess960.clockpack.mvp
 
+import com.alexm.chess960.clockpack.Clock
 import com.alexm.chess960.secondsToHMS
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable

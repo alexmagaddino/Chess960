@@ -1,9 +1,9 @@
 package com.alexm.chess960
 
-import com.alexm.chess960.clockpack.ClockLogic
-import com.alexm.chess960.clockpack.ClockPresenter
-import com.alexm.chess960.randompos.RandomLogic
-import com.alexm.chess960.randompos.RandomPresenter
+import com.alexm.chess960.clockpack.mvp.ClockLogic
+import com.alexm.chess960.clockpack.mvp.ClockPresenter
+import com.alexm.chess960.randompos.mvp.RandomLogic
+import com.alexm.chess960.randompos.mvp.RandomPresenter
 import org.koin.dsl.module
 
 

@@ -7,6 +7,8 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.RunningClock
+import com.alexm.chess960.clockpack.mvp.ClockPresenter
+import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.activity_clock.*
 import kotlinx.android.synthetic.main.clock_menu_bar.*
