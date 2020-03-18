@@ -10,8 +10,8 @@ import com.alexm.chess960.RunningClock
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
-import kotlinx.android.synthetic.main.activity_clock.*
 import kotlinx.android.synthetic.main.clock_menu_bar.*
+import kotlinx.android.synthetic.main.activity_clock.*
 import org.koin.android.ext.android.inject
 
 class ClockActivity : AppCompatActivity(), ClockView {
@@ -68,8 +68,8 @@ class ClockActivity : AppCompatActivity(), ClockView {
 
     override fun showCountdown(remaningTime: String, clockSel: RunningClock) {
         when (clockSel) {
-            RunningClock.CLOCK_1 -> btnClock1!!.text = remaningTime
-            RunningClock.CLOCK_2 -> btnClock2!!.text = remaningTime
+            RunningClock.CLOCK_1 -> btnClock1.text = remaningTime
+            RunningClock.CLOCK_2 -> btnClock2.text = remaningTime
             else -> throw Exception("It was called showCountdown with the NONE value of RunningClock enum set")
         }
     }
@@ -97,9 +97,9 @@ class ClockActivity : AppCompatActivity(), ClockView {
     @SuppressLint("SetTextI18n")
     override fun setPausePlayState(state: PausePlayState) {
         when (state) {
-            PausePlayState.IDLE -> btnPausePlay?.setText(R.string.pause_play)
-            PausePlayState.PLAY -> btnPausePlay?.setText(R.string.play)
-            PausePlayState.PAUSE -> btnPausePlay?.setText(R.string.pause)
+            PausePlayState.IDLE -> btnPausePlay.setText(R.string.pause_play)
+            PausePlayState.PLAY -> btnPausePlay.setText(R.string.play)
+            PausePlayState.PAUSE -> btnPausePlay.setText(R.string.pause)
         }
     }
 
@@ -139,7 +139,7 @@ class ClockActivity : AppCompatActivity(), ClockView {
 //            if (edtTime2.text.toString().isEmpty())
 //                timeControl2 = Integer.valueOf(edtTime2.text.toString()) * 60
 //
-//            presenter!!.setCountdown(timeControl1, timeControl2,
+//            presenter.setCountdown(timeControl1, timeControl2,
 //                    if (edtInc1.text.toString().isEmpty()) Integer.valueOf(edtInc1.text.toString()) else 0,
 //                    if (edtInc2.text.toString().isEmpty()) Integer.valueOf(edtInc2.text.toString()) else 0)
 //

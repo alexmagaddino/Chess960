@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/main_menu_fragment">
+
+    <fragment
+        android:id="@+id/main_menu_fragment"
+        android:name="com.alexm.chess960.MainMenuFragment"
+        android:label="MainMenu"
+        tools:layout="@layout/fragment_main_menu">
+
+        <action
+            android:id="@+id/action_to_rules"
+            app:destination="@id/rules_fragment" />
+
+        <action
+            android:id="@+id/action_to_random"
+            app:destination="@id/random_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/rules_fragment"
+        android:name="com.alexm.chess960.RulesFragment"
+        tools:layout="@layout/fragment_rules" />
+
+    <fragment
+        android:id="@+id/random_fragment"
+        android:name="com.alexm.chess960.randompos.RandomFragment"
+        tools:layout="@layout/fragment_random" />
+
+</navigation>

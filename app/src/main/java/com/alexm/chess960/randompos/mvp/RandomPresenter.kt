@@ -29,7 +29,7 @@ class RandomPresenter(private val logic: RandomLogic) {
             }
 
             override fun onNext(randomPos: RandomPos) {
-                view!!.showRandomPos(randomPos)
+                view?.showRandomPos(randomPos)
             }
 
             override fun onError(e: Throwable) {
