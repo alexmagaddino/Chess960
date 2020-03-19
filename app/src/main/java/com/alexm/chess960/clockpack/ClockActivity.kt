@@ -64,8 +64,8 @@ class ClockActivity : AppCompatActivity(), ClockView {
         presenter.unSubscribe()
     }
 
-    override fun showCountdown(remaningTime: String, color: ChessColor) {
-        when (color) {
+    override fun showCountdown(remaningTime: String, clockSel: ChessColor) {
+        when (clockSel) {
             WHITE -> btnClock1.text = remaningTime
             BLACK -> btnClock2.text = remaningTime
         }
