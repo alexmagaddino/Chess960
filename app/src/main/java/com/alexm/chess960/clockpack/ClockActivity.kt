@@ -9,6 +9,7 @@ import com.alexm.chess960.ChessColor
 import com.alexm.chess960.ChessColor.BLACK
 import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
+import com.alexm.chess960.clockpack.dialog.ClockSettingsDialog
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
@@ -119,8 +120,7 @@ class ClockActivity : AppCompatActivity(), ClockView {
                         .replace(R.id.container, it, ClockSettingsDialog.TAG)
                         .commit()
             }
-
-            container.visibility = VISIBLE
+            fragment_container.visibility = VISIBLE
         }
 
 //        val settingsDialog = Dialog(this)
