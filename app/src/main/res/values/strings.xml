@@ -42,4 +42,5 @@
     <string name="home">Home</string>
     <string name="restart">Restart</string>
     <string name="settings">Set</string>
+    <string name="time_expired">Tempo scaduto</string>
 </resources>

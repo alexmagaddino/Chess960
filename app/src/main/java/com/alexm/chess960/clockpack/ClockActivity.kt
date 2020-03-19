@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import com.alexm.chess960.ChessColor
+import com.alexm.chess960.ChessColor.BLACK
+import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
-import com.alexm.chess960.RunningClock
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
-import kotlinx.android.synthetic.main.clock_menu_bar.*
 import kotlinx.android.synthetic.main.activity_clock.*
+import kotlinx.android.synthetic.main.clock_menu_bar.*
 import org.koin.android.ext.android.inject
 
 class ClockActivity : AppCompatActivity(), ClockView {
@@ -21,8 +23,8 @@ class ClockActivity : AppCompatActivity(), ClockView {
     //I have to change the static init with the use of the shared Prefs
     private var timeControl1 = 300
     private var timeControl2 = 300
-    private var timeInc1 = 0
-    private var timeInc2 = 0
+    private var inc1 = 0
+    private var inc2 = 0
 
     private var clockFragment: ClockSettingsDialog? = null
 
@@ -36,15 +38,17 @@ class ClockActivity : AppCompatActivity(), ClockView {
         btnPausePlay.setOnClickListener(onClick)
         btnRestart.setOnClickListener(onClick)
         btnSettings.setOnClickListener(onClick)
+        presenter.subscribe(this)
+        presenter.setCountdown(timeControl1, timeControl2, inc1, inc2)
     }
 
     private val onClick = fun(v: View?) {
         when (v) {
-            btnClock1 -> presenter.startCountdown(RunningClock.CLOCK_2)
-            btnClock2 -> presenter.startCountdown(RunningClock.CLOCK_1)
+            btnClock1 -> presenter.startCountdown(BLACK)
+            btnClock2 -> presenter.startCountdown(WHITE)
 
             btnPausePlay -> presenter.pausePlay()
-            btnRestart -> presenter.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
+            btnRestart -> presenter.setCountdown(timeControl1, timeControl2, inc1, inc2)
 
             btnHome -> finish()
             btnSettings -> createSettingsDialog()
@@ -55,22 +59,15 @@ class ClockActivity : AppCompatActivity(), ClockView {
         //nothing
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.subscribe(this)
-        presenter.setCountdown(timeControl1, timeControl2, timeInc1, timeInc2)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         presenter.unSubscribe()
     }
 
-    override fun showCountdown(remaningTime: String, clockSel: RunningClock) {
-        when (clockSel) {
-            RunningClock.CLOCK_1 -> btnClock1.text = remaningTime
-            RunningClock.CLOCK_2 -> btnClock2.text = remaningTime
-            else -> throw Exception("It was called showCountdown with the NONE value of RunningClock enum set")
+    override fun showCountdown(remaningTime: String, color: ChessColor) {
+        when (color) {
+            WHITE -> btnClock1.text = remaningTime
+            BLACK -> btnClock2.text = remaningTime
         }
     }
 

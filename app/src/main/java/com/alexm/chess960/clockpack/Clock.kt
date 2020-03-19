@@ -1,22 +1,14 @@
 package com.alexm.chess960.clockpack
 
+import com.alexm.chess960.ChessColor
+
 
 /**
  * Created by alexm on 06/10/2019
  */
-class Clock(private var timer: Int, private var increment: Int) {
+class Clock(val color: ChessColor, var timer: Long, var increment: Int) {
 
-    fun getTime(): Long = (timer + 1).toLong()
-
-    fun setTimer(timer: Int) {
-        this.timer = timer
-    }
-
-    fun setIncrement(increment: Int) {
-        this.increment = increment
-    }
-
-    fun tick(): Int {
+    fun tick(): Long {
         if (timer > 0) {
             timer--
         }
