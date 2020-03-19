@@ -34,4 +34,13 @@
     <string name="IncSet1">Incremento 1 (secondi)</string>
     <string name="IncSet2">Incremento 2 (secondi)</string>
     <string name="btnSet">Imposta</string>
+    <string name="pause_play"><![CDATA[Pause&Play]]></string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="set_clock">Imposta Orologi</string>
+    <string name="set">Imposta</string>
+    <string name="home">Home</string>
+    <string name="restart">Restart</string>
+    <string name="settings">Set</string>
+    <string name="time_expired">Tempo scaduto</string>
 </resources>

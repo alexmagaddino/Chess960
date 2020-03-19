@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Descrizione"
+        style="@style/Title"
+        android:text="@string/Descrizione"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ColA"
+        style="@style/Columns"
+        android:layout_marginTop="48dp"
+        android:text="@string/ColA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Descrizione" />
+
+    <TextView
+        android:id="@+id/textA"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColA"
+        app:layout_constraintTop_toTopOf="@+id/ColA" />
+
+    <TextView
+        android:id="@+id/ColB"
+        style="@style/Columns"
+        android:text="@string/ColB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColA" />
+
+    <TextView
+        android:id="@+id/textB"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColB"
+        app:layout_constraintTop_toTopOf="@+id/ColB" />
+
+    <TextView
+        android:id="@+id/ColC"
+        style="@style/Columns"
+        android:text="@string/ColC"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColB" />
+
+    <TextView
+        android:id="@+id/textC"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColC"
+        app:layout_constraintTop_toTopOf="@+id/ColC" />
+
+    <TextView
+        android:id="@+id/ColD"
+        style="@style/Columns"
+        android:text="@string/ColD"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColC" />
+
+    <TextView
+        android:id="@+id/textD"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColD"
+        app:layout_constraintTop_toTopOf="@+id/ColD" />
+
+    <TextView
+        android:id="@+id/ColE"
+        style="@style/Columns"
+        android:text="@string/ColE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColD" />
+
+    <TextView
+        android:id="@+id/textE"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColE"
+        app:layout_constraintTop_toTopOf="@+id/ColE" />
+
+    <TextView
+        android:id="@+id/ColF"
+        style="@style/Columns"
+        android:text="@string/ColF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColE" />
+
+    <TextView
+        android:id="@+id/textF"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColF"
+        app:layout_constraintTop_toTopOf="@+id/ColF" />
+
+    <TextView
+        android:id="@+id/ColG"
+        style="@style/Columns"
+        android:text="@string/ColG"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColF" />
+
+    <TextView
+        android:id="@+id/textG"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColG"
+        app:layout_constraintTop_toTopOf="@+id/ColG" />
+
+    <TextView
+        android:id="@+id/ColH"
+        style="@style/Columns"
+        android:text="@string/ColH"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColG" />
+
+    <TextView
+        android:id="@+id/textH"
+        style="@style/Columns_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ColH"
+        app:layout_constraintTop_toTopOf="@+id/ColH" />
+
+    <Button
+        android:id="@+id/btn_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/ShowButton"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

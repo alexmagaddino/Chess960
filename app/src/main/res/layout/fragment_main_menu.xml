@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@drawable/sfondo1"
     android:orientation="vertical"
-    android:background="@drawable/sfondo1" >
+    tools:context="com.alexm.chess960.">
 
     <Button
-        android:id="@+id/GotoRandom"
+        android:id="@+id/goto_random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/GotoRandom"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/GotoClock"
+        android:id="@+id/goto_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/GotoClock"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/GotoRules"
+        android:id="@+id/goto_rules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/GotoRules"
         android:textSize="20sp" />
-
 
 </LinearLayout>

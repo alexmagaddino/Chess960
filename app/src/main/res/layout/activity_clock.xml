@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:id="@+id/ClockLayout">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnClock1"
+    <LinearLayout
+        android:id="@+id/ClockLayout"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_margin="8dp"
-        android:textSize="60sp" />
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <include layout="@layout/clock_menu_bar"/>
+        <Button
+            android:id="@+id/btnClock1"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_margin="8dp"
+            android:textSize="60sp" />
 
-    <Button
-        android:id="@+id/btnClock2"
+        <include layout="@layout/clock_menu_bar" />
+
+        <Button
+            android:id="@+id/btnClock2"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_margin="8dp"
+            android:textSize="60sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_margin="8dp"
-        android:textSize="60sp" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone"/>
 
-</LinearLayout>
+</FrameLayout>

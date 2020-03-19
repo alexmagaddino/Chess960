@@ -10,27 +10,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Home" />
+        android:text="@string/home" />
 
     <Button
         android:id="@+id/btnPausePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Pause&amp;Play"/>
+        android:text="@string/pause_play" />
 
     <Button
         android:id="@+id/btnRestart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Restart"/>
+        android:text="@string/restart" />
 
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Set"/>
+        android:text="@string/settings" />
 
 </LinearLayout>

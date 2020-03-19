@@ -1,0 +1,124 @@
+package com.alexm.chess960.clockpack.mvp
+
+import android.content.Context
+import com.alexm.chess960.ChessColor
+import com.alexm.chess960.ChessColor.BLACK
+import com.alexm.chess960.ChessColor.WHITE
+import com.alexm.chess960.PausePlayState
+import com.alexm.chess960.clockpack.Clock
+import com.alexm.chess960.secondsToHMS
+import com.example.chess960.chess960.R
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import org.koin.core.KoinComponent
+import org.koin.core.get
+import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
+
+/**
+ * Created by alexm on 21/05/2018.
+ */
+
+internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
+
+    private var view: ClockView? = null
+    private val context by inject<Context>()
+    private lateinit var clockWhite: Clock
+    private lateinit var clockBlack: Clock
+
+    private val clockDisposers =
+            mutableMapOf<ChessColor, Disposable?>()
+
+    private var pauseOrPlay = PausePlayState.PLAY
+    private var lastRunningClock: ChessColor? = null
+
+    private fun getSelectedClock(color: ChessColor) = if (color.isWhite()) clockWhite else clockBlack
+
+    private fun alternateEnabledButton(color: ChessColor) {
+        color.isWhite().also {
+            view?.enableButton1(it)
+            view?.enableButton2(!it)
+        }
+    }
+
+    fun startCountdown(clockSel: ChessColor) {
+        logic.tick(getSelectedClock(clockSel)).subscribe(object : Observer<String> {
+            override fun onComplete() {
+                view?.showCountdown(context.getString(R.string.time_expired), clockSel)
+                view?.finishCountdown()
+            }
+
+            override fun onSubscribe(d: Disposable?) {
+                pauseClock(!clockSel)
+                logic.addIncrement(getSelectedClock(!clockSel)).subscribe()
+                lastRunningClock = clockSel
+                alternateEnabledButton(clockSel)
+                view?.enableHomeButton(false)
+                view?.enableRestartButton(false)
+                view?.enableSetButton(false)
+                view?.setPausePlayState(PausePlayState.PAUSE)
+                clockDisposers[clockSel] = d
+            }
+
+            override fun onNext(remainingTime: String) {
+                view?.showCountdown(remainingTime, clockSel)
+            }
+
+            override fun onError(e: Throwable?) {
+                e?.printStackTrace()
+            }
+        })
+    }
+
+    fun pauseClock(color: ChessColor) {
+        clockDisposers[color]?.dispose()
+    }
+
+    /**
+     * this method control the pauseOrPlay field:
+     * if is an even number pause clocks, blocks the buttons and save who was the last running clock.
+     * else enable the buttons and control who was the last running clock (0 none, 1 the first, 2 the second)
+     * at the end increase the pauseOrPlay to change state
+     */
+    fun pausePlay() {
+        if (pauseOrPlay.isPlaying()) {
+            pauseClock(WHITE)
+            pauseClock(BLACK)
+            view?.enableButton1(false)
+            view?.enableButton2(false)
+            view?.enableHomeButton(true)
+            view?.enableSetButton(true)
+            view?.enableRestartButton(true)
+            view?.setPausePlayState(pauseOrPlay)
+        } else {
+            view?.enableButton1(true)
+            view?.enableButton2(true)
+            view?.setPausePlayState(PausePlayState.PAUSE)
+            lastRunningClock?.apply(::startCountdown)
+        }
+        pauseOrPlay = PausePlayState.PAUSE
+    }
+
+    fun setCountdown(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int) {
+        pauseClock(WHITE)
+        pauseClock(BLACK)
+        clockWhite = get { parametersOf(WHITE, timeControl1, inc1) }
+        clockBlack = get { parametersOf(BLACK, timeControl2, inc2) }
+        lastRunningClock = null
+        view?.restartButtons(clockWhite.timer.secondsToHMS(), clockBlack.timer.secondsToHMS())
+        view?.enableSetButton(true)
+        view?.enableHomeButton(true)
+        view?.setPausePlayState(PausePlayState.IDLE)
+    }
+
+    fun subscribe(view: ClockView) {
+        this.view = view
+    }
+
+    fun unSubscribe() {
+        view = null
+        clockDisposers.forEach { (_, it) ->
+            it?.dispose()
+        }
+    }
+}
