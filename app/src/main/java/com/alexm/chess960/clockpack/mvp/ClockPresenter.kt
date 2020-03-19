@@ -52,6 +52,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
             override fun onSubscribe(d: Disposable?) {
                 pauseClock(!clockSel)
                 logic.addIncrement(getSelectedClock(!clockSel)).subscribe()
+                pauseOrPlay = PLAY
                 lastRunningClock = clockSel
                 alternateEnabledButton(clockSel)
                 view?.enableHomeButton(false)

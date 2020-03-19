@@ -1,52 +1,43 @@
 package com.alexm.chess960.randompos
 
-import java.util.*
+import com.alexm.chess960.randompos.RandomPos.ChessPieces.*
 
 /**
  * Created by alexm on 25/05/2018.
  */
+class RandomPos {
+    private val pezzi = values().toMutableList()
 
-class RandomPos : IRandomPos {
-    private val pezzi: ArrayList<String> = ArrayList(8)
-    private val leftRook = "Torre sinistra"
-    private val knight1 = "Cavallo"
-    private val darkFieldBishop = "Alfiere campo scuro"
-    private val queen = "Donna"
-    private val king = "Re"
-    private val brightFieldBishop = "Alfiere campo chiaro"
-    private val knight2 = "Cavallo"
-    private val rightRook = "Torre destra"
-
-    init {
-        pezzi.add(leftRook)
-        pezzi.add(knight1)
-        pezzi.add(darkFieldBishop)
-        pezzi.add(queen)
-        pezzi.add(king)
-        pezzi.add(brightFieldBishop)
-        pezzi.add(knight2)
-        pezzi.add(rightRook)
+    enum class ChessPieces(val prettyString: String) {
+        LEFT_ROOK("Torre sinistra"),
+        KNIGHT_OF_QUEEN("Cavallo"),
+        DARK_FIELD_BISHOP("Alfiere campo scuro"),
+        QUEEN("Donna"),
+        KING("Re"),
+        BRIGHT_FIELD_BISHOP("Alfiere campo chiaro"),
+        KNIGHT_OF_KING("Cavallo"),
+        RIGHT_ROOK("Torre destra");
     }
 
-    override fun shuffle() {
+    fun shuffle() {
         pezzi.shuffle()
         while (true) {
-            if (pezzi.indexOf(king) != 0 && pezzi.indexOf(king) != 7 &&
-                    pezzi.indexOf(leftRook) < pezzi.indexOf(king) &&
-                    pezzi.indexOf(rightRook) > pezzi.indexOf(king)
-                    && pezzi.indexOf(brightFieldBishop) % 2 == 1 &&
-                    pezzi.indexOf(darkFieldBishop) % 2 == 0)
+            if (pezzi.indexOf(KING) != 0 && pezzi.indexOf(KING) != 7 &&
+                    pezzi.indexOf(LEFT_ROOK) < pezzi.indexOf(KING) &&
+                    pezzi.indexOf(RIGHT_ROOK) > pezzi.indexOf(KING)
+                    && pezzi.indexOf(BRIGHT_FIELD_BISHOP) % 2 == 1 &&
+                    pezzi.indexOf(DARK_FIELD_BISHOP) % 2 == 0)
                 break
             else
                 pezzi.shuffle()
         }
     }
 
-    override fun getPezzo(i: Int): String {
+    fun getPezzo(i: Int): String {
         return when (pezzi[i]) {
-            leftRook, rightRook -> "Torre"
-            darkFieldBishop, brightFieldBishop -> "Alfiere"
-            else -> pezzi[i]
+            LEFT_ROOK, RIGHT_ROOK -> "Torre"
+            DARK_FIELD_BISHOP, BRIGHT_FIELD_BISHOP -> "Alfiere"
+            else -> pezzi[i].prettyString
         }
     }
 }

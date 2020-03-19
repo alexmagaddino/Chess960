@@ -1,6 +1,7 @@
 package com.alexm.chess960
 
 import com.alexm.chess960.clockpack.Clock
+import com.alexm.chess960.clockpack.ClockPreferences
 import com.alexm.chess960.clockpack.mvp.ClockLogic
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.randompos.mvp.RandomLogic
@@ -18,6 +19,7 @@ val randomModule = module {
 
 val clockModule = module {
     factory { (color: ChessColor, timer: Long, increment: Int) -> Clock(color, timer, increment) }
+    single { ClockPreferences(get()) }
     single { ClockLogic() }
     single { ClockPresenter(get()) }
 }
