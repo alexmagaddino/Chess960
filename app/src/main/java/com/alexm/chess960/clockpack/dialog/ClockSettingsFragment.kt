@@ -22,16 +22,9 @@ class ClockSettingsFragment : Fragment(), ClockSettingsView {
 
     private val presenter by inject<ClockSettingPresenter>()
 
-    companion object {
-        val TAG = ClockSettingsFragment::class.java.name
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.clock_settings_dialog, container, false).apply {
-
-                presenter.subscribe(this@ClockSettingsFragment)
-
                 this.close_popup.setOnClickListener {
                     close(false)
                 }
@@ -42,8 +35,13 @@ class ClockSettingsFragment : Fragment(), ClockSettingsView {
                 }
             }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStart() {
+        super.onStart()
+        presenter.subscribe(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
         presenter.unsubscribe()
     }
 
