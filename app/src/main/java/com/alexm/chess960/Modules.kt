@@ -4,6 +4,7 @@ import com.alexm.chess960.clockpack.vo.Clock
 import com.alexm.chess960.clockpack.ClockPreferences
 import com.alexm.chess960.clockpack.dialog.ClockSettingLogic
 import com.alexm.chess960.clockpack.dialog.ClockSettingPresenter
+import com.alexm.chess960.clockpack.dialog.ClockSettingsFragment
 import com.alexm.chess960.clockpack.mvp.ClockLogic
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.randompos.mvp.RandomLogic
@@ -29,4 +30,5 @@ val clockDialogModule = module {
     single { ClockPreferences(get()) }
     single { ClockSettingLogic(get()) }
     single { ClockSettingPresenter(get()) }
+    single { ClockSettingsFragment() }
 }

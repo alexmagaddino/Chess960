@@ -9,7 +9,7 @@ import com.alexm.chess960.ChessColor
 import com.alexm.chess960.ChessColor.BLACK
 import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
-import com.alexm.chess960.clockpack.dialog.ClockSettingsDialog
+import com.alexm.chess960.clockpack.dialog.ClockSettingsFragment
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
@@ -20,7 +20,7 @@ class ClockActivity : AppCompatActivity(), ClockView {
 
     private val presenter by inject<ClockPresenter>()
 
-    private var clockFragment: ClockSettingsDialog? = null
+    private val clockFragment by inject<ClockSettingsFragment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +58,9 @@ class ClockActivity : AppCompatActivity(), ClockView {
         presenter.unSubscribe()
     }
 
-    fun setFromDialog() {
-        presenter.setCountdown()
+    fun setFromDialog(set: Boolean) {
+        fragment_container.visibility = View.GONE
+        if (set) presenter.setCountdown()
     }
 
     override fun showCountdown(remaningTime: String, clockSel: ChessColor) {
@@ -111,13 +112,10 @@ class ClockActivity : AppCompatActivity(), ClockView {
     }
 
     private fun createSettingsDialog() {
-        if (clockFragment == null) {
-            clockFragment = ClockSettingsDialog().also {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, it, ClockSettingsDialog.TAG)
-                        .commit()
-            }
-            fragment_container.visibility = VISIBLE
-        }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, clockFragment, ClockSettingsFragment.TAG)
+                .commit()
+
+        fragment_container.visibility = VISIBLE
     }
 }
