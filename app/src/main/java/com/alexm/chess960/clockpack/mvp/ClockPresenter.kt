@@ -31,7 +31,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
     private val clockDisposers =
             mutableMapOf<ChessColor, Disposable?>()
 
-    private var pauseOrPlay = PausePlayState.IDLE
+    private lateinit var pauseOrPlay: PausePlayState
     private var lastRunningClock: ChessColor? = null
 
     private fun getSelectedClock(color: ChessColor) = if (color.isWhite()) clockWhite else clockBlack
@@ -126,6 +126,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
 
     fun subscribe(view: ClockView) {
         this.view = view
+        pauseOrPlay = PausePlayState.IDLE
     }
 
     fun unSubscribe() {

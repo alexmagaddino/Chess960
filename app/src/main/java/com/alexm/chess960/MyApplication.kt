@@ -2,6 +2,8 @@ package com.alexm.chess960
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 
 
@@ -13,6 +15,8 @@ class MyApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApplication)
+            androidLogger()
+            fragmentFactory()
             modules(randomModule, clockModule, clockDialogModule)
         }
     }

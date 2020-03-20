@@ -20,8 +20,6 @@ class ClockActivity : AppCompatActivity(), ClockView {
 
     private val presenter by inject<ClockPresenter>()
 
-    private val clockFragment by inject<ClockSettingsFragment>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
@@ -32,7 +30,6 @@ class ClockActivity : AppCompatActivity(), ClockView {
         btnPausePlay.setOnClickListener(onClick)
         btnRestart.setOnClickListener(onClick)
         btnSettings.setOnClickListener(onClick)
-        presenter.subscribe(this)
         presenter.setCountdown()
     }
 
@@ -53,8 +50,13 @@ class ClockActivity : AppCompatActivity(), ClockView {
         //nothing
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStart() {
+        super.onStart()
+        presenter.subscribe(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
         presenter.unSubscribe()
     }
 
@@ -113,7 +115,8 @@ class ClockActivity : AppCompatActivity(), ClockView {
 
     private fun createSettingsDialog() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, clockFragment, ClockSettingsFragment.TAG)
+                .replace(R.id.fragment_container,
+                        ClockSettingsFragment::class.java, null, null)
                 .commit()
 
         fragment_container.visibility = VISIBLE
