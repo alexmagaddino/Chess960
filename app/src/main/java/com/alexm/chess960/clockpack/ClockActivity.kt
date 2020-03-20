@@ -9,24 +9,18 @@ import com.alexm.chess960.ChessColor
 import com.alexm.chess960.ChessColor.BLACK
 import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
+import com.alexm.chess960.clockpack.dialog.ClockSettingsFragment
 import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.activity_clock.*
-import kotlinx.android.synthetic.main.clock_menu_bar.*
 import org.koin.android.ext.android.inject
 
 class ClockActivity : AppCompatActivity(), ClockView {
 
     private val presenter by inject<ClockPresenter>()
 
-    //I have to change the static init with the use of the shared Prefs
-    private var timeControl1 = 300
-    private var timeControl2 = 300
-    private var inc1 = 0
-    private var inc2 = 0
-
-    private var clockFragment: ClockSettingsDialog? = null
+    private val clockFragment by inject<ClockSettingsFragment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +33,7 @@ class ClockActivity : AppCompatActivity(), ClockView {
         btnRestart.setOnClickListener(onClick)
         btnSettings.setOnClickListener(onClick)
         presenter.subscribe(this)
-        presenter.setCountdown(timeControl1, timeControl2, inc1, inc2)
+        presenter.setCountdown()
     }
 
     private val onClick = fun(v: View?) {
@@ -48,7 +42,7 @@ class ClockActivity : AppCompatActivity(), ClockView {
             btnClock2 -> presenter.startCountdown(WHITE)
 
             btnPausePlay -> presenter.pausePlay()
-            btnRestart -> presenter.setCountdown(timeControl1, timeControl2, inc1, inc2)
+            btnRestart -> presenter.setCountdown()
 
             btnHome -> finish()
             btnSettings -> createSettingsDialog()
@@ -64,8 +58,13 @@ class ClockActivity : AppCompatActivity(), ClockView {
         presenter.unSubscribe()
     }
 
-    override fun showCountdown(remaningTime: String, color: ChessColor) {
-        when (color) {
+    fun setFromDialog(set: Boolean) {
+        fragment_container.visibility = View.GONE
+        if (set) presenter.setCountdown()
+    }
+
+    override fun showCountdown(remaningTime: String, clockSel: ChessColor) {
+        when (clockSel) {
             WHITE -> btnClock1.text = remaningTime
             BLACK -> btnClock2.text = remaningTime
         }
@@ -113,37 +112,10 @@ class ClockActivity : AppCompatActivity(), ClockView {
     }
 
     private fun createSettingsDialog() {
-        if (clockFragment == null) {
-            clockFragment = ClockSettingsDialog().also {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, it, ClockSettingsDialog.TAG)
-                        .commit()
-            }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, clockFragment, ClockSettingsFragment.TAG)
+                .commit()
 
-            container.visibility = VISIBLE
-        }
-
-//        val settingsDialog = Dialog(this)
-//        settingsDialog.setTitle("Imposta Orologi")
-//        settingsDialog.setContentView(R.layout.clock_settings)
-//        val edtTime1 = settingsDialog.findViewById<EditText>(R.id.SetClock1)
-//        val edtTime2 = settingsDialog.findViewById<EditText>(R.id.SetClock2)
-//        val edtInc1 = settingsDialog.findViewById<EditText>(R.id.SetInc1)
-//        val edtInc2 = settingsDialog.findViewById<EditText>(R.id.SetInc2)
-//        settingsDialog.findViewById<View>(R.id.btnSet).setOnClickListener {
-//            if (edtTime1.text.toString().isEmpty())
-//                timeControl1 = Integer.valueOf(edtTime1.text.toString()) * 60
-//            if (edtTime2.text.toString().isEmpty())
-//                timeControl2 = Integer.valueOf(edtTime2.text.toString()) * 60
-//
-//            presenter.setCountdown(timeControl1, timeControl2,
-//                    if (edtInc1.text.toString().isEmpty()) Integer.valueOf(edtInc1.text.toString()) else 0,
-//                    if (edtInc2.text.toString().isEmpty()) Integer.valueOf(edtInc2.text.toString()) else 0)
-//
-//            enableRestartButton(true)
-//            enableHomeButton(true)
-//            settingsDialog.dismiss()
-//        }
-//        settingsDialog.show()
+        fragment_container.visibility = VISIBLE
     }
 }

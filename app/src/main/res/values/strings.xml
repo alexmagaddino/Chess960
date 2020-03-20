@@ -43,4 +43,7 @@
     <string name="restart">Restart</string>
     <string name="settings">Set</string>
     <string name="time_expired">Tempo scaduto</string>
+    <string name="set_control_time">Setta il tempo di controllo</string>
+    <string name="set_incremental_time">Setta il tempo di incremento</string>
+    <string name="error">C\'è stato un errore!</string>
 </resources>

@@ -16,8 +16,6 @@ enum class PausePlayState {
     IDLE,
     PAUSE,
     PLAY;
-
-    fun isPlaying() = this == PLAY
 }
 
 enum class ChessColor {

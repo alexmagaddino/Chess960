@@ -17,6 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Layout style-->
     <style name="Title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -43,7 +44,22 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ClockButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">230dp</item>
+        <item name="android:textSize">@dimen/ClockButtonTextSize</item>
+        <item name="android:layout_marginTop">@dimen/StandardMargin</item>
+        <item name="android:layout_marginStart">@dimen/StandardMargin</item>
+        <item name="android:layout_marginEnd">@dimen/StandardMargin</item>
+        <item name="android:layout_marginBottom">@dimen/StandardMargin</item>
+    </style>
+
+
+    <dimen name="StandardMargin">16dp</dimen>
+
+    <!-- Text font size-->
     <dimen name="NormalTextSize">16sp</dimen>
     <dimen name="TitleTextSize">18sp</dimen>
+    <dimen name="ClockButtonTextSize">60sp</dimen>
 
 </resources>

@@ -5,7 +5,9 @@ import com.alexm.chess960.ChessColor
 import com.alexm.chess960.ChessColor.BLACK
 import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
-import com.alexm.chess960.clockpack.Clock
+import com.alexm.chess960.PausePlayState.PAUSE
+import com.alexm.chess960.PausePlayState.PLAY
+import com.alexm.chess960.clockpack.vo.Clock
 import com.alexm.chess960.secondsToHMS
 import com.example.chess960.chess960.R
 import io.reactivex.rxjava3.core.Observer
@@ -18,7 +20,6 @@ import org.koin.core.parameter.parametersOf
 /**
  * Created by alexm on 21/05/2018.
  */
-
 internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
 
     private var view: ClockView? = null
@@ -26,10 +27,11 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
     private lateinit var clockWhite: Clock
     private lateinit var clockBlack: Clock
 
+    private var settingsDisposable: Disposable? = null
     private val clockDisposers =
             mutableMapOf<ChessColor, Disposable?>()
 
-    private var pauseOrPlay = PausePlayState.PLAY
+    private var pauseOrPlay = PausePlayState.IDLE
     private var lastRunningClock: ChessColor? = null
 
     private fun getSelectedClock(color: ChessColor) = if (color.isWhite()) clockWhite else clockBlack
@@ -51,12 +53,13 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
             override fun onSubscribe(d: Disposable?) {
                 pauseClock(!clockSel)
                 logic.addIncrement(getSelectedClock(!clockSel)).subscribe()
+                pauseOrPlay = PLAY
                 lastRunningClock = clockSel
                 alternateEnabledButton(clockSel)
                 view?.enableHomeButton(false)
                 view?.enableRestartButton(false)
                 view?.enableSetButton(false)
-                view?.setPausePlayState(PausePlayState.PAUSE)
+                view?.setPausePlayState(PAUSE)
                 clockDisposers[clockSel] = d
             }
 
@@ -81,34 +84,44 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
      * at the end increase the pauseOrPlay to change state
      */
     fun pausePlay() {
-        if (pauseOrPlay.isPlaying()) {
-            pauseClock(WHITE)
-            pauseClock(BLACK)
-            view?.enableButton1(false)
-            view?.enableButton2(false)
-            view?.enableHomeButton(true)
-            view?.enableSetButton(true)
-            view?.enableRestartButton(true)
-            view?.setPausePlayState(pauseOrPlay)
-        } else {
-            view?.enableButton1(true)
-            view?.enableButton2(true)
-            view?.setPausePlayState(PausePlayState.PAUSE)
-            lastRunningClock?.apply(::startCountdown)
+        view?.setPausePlayState(pauseOrPlay)
+        when (pauseOrPlay) {
+            PLAY -> {
+                pauseClock(WHITE)
+                pauseClock(BLACK)
+                view?.enableButton1(false)
+                view?.enableButton2(false)
+                view?.enableHomeButton(true)
+                view?.enableSetButton(true)
+                view?.enableRestartButton(true)
+                pauseOrPlay = PAUSE
+            }
+            PAUSE -> {
+                view?.enableButton1(true)
+                view?.enableButton2(true)
+                lastRunningClock?.apply(::startCountdown)
+                pauseOrPlay = PLAY
+            }
+            else -> {
+                //nothing
+            }
         }
-        pauseOrPlay = PausePlayState.PAUSE
     }
 
-    fun setCountdown(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int) {
-        pauseClock(WHITE)
-        pauseClock(BLACK)
-        clockWhite = get { parametersOf(WHITE, timeControl1, inc1) }
-        clockBlack = get { parametersOf(BLACK, timeControl2, inc2) }
-        lastRunningClock = null
-        view?.restartButtons(clockWhite.timer.secondsToHMS(), clockBlack.timer.secondsToHMS())
-        view?.enableSetButton(true)
-        view?.enableHomeButton(true)
-        view?.setPausePlayState(PausePlayState.IDLE)
+    fun setCountdown() {
+        settingsDisposable = logic.getStoredSettings(get()).subscribe({ (timeControl, inc) ->
+            pauseClock(WHITE)
+            pauseClock(BLACK)
+            clockWhite = get { parametersOf(WHITE, timeControl, inc) }
+            clockBlack = get { parametersOf(BLACK, timeControl, inc) }
+            lastRunningClock = null
+            view?.restartButtons(clockWhite.timer.secondsToHMS(), clockBlack.timer.secondsToHMS())
+            view?.enableSetButton(true)
+            view?.enableHomeButton(true)
+            view?.setPausePlayState(PausePlayState.IDLE)
+        }, {
+            it.printStackTrace()
+        })
     }
 
     fun subscribe(view: ClockView) {
@@ -117,6 +130,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
 
     fun unSubscribe() {
         view = null
+        settingsDisposable?.dispose()
         clockDisposers.forEach { (_, it) ->
             it?.dispose()
         }
