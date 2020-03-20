@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
+import com.alexm.chess960.clockpack.ClockActivity
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.activity_clock.*
 import kotlinx.android.synthetic.main.clock_settings_dialog.view.*
@@ -28,8 +31,7 @@ class ClockSettingsDialog : Fragment(), ClockSettingsView {
             inflater.inflate(R.layout.clock_settings_dialog, container, false).apply {
 
                 close_popup.setOnClickListener {
-                    fragment_container.visibility = GONE
-                    activity?.supportFragmentManager?.popBackStack()
+                    close()
                 }
                 button.setOnClickListener {
                     val timeControl = set_time_control.text.toString().toLong()
@@ -38,11 +40,17 @@ class ClockSettingsDialog : Fragment(), ClockSettingsView {
                 }
             }
 
+    private fun close() {
+        fragment_container.visibility = GONE
+        activity?.supportFragmentManager?.popBackStack()
+    }
+
     override fun onSuccess() {
-        TODO("not implemented")
+        (activity as ClockActivity).setFromDialog()
+        close()
     }
 
     override fun onFail() {
-        TODO("not implemented")
+        Toast.makeText(activity, R.string.error, LENGTH_SHORT).show()
     }
 }

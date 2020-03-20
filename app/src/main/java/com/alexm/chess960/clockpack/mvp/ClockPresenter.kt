@@ -7,7 +7,7 @@ import com.alexm.chess960.ChessColor.WHITE
 import com.alexm.chess960.PausePlayState
 import com.alexm.chess960.PausePlayState.PAUSE
 import com.alexm.chess960.PausePlayState.PLAY
-import com.alexm.chess960.clockpack.Clock
+import com.alexm.chess960.clockpack.vo.Clock
 import com.alexm.chess960.secondsToHMS
 import com.example.chess960.chess960.R
 import io.reactivex.rxjava3.core.Observer
@@ -27,6 +27,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
     private lateinit var clockWhite: Clock
     private lateinit var clockBlack: Clock
 
+    private var settingsDisposable: Disposable? = null
     private val clockDisposers =
             mutableMapOf<ChessColor, Disposable?>()
 
@@ -107,16 +108,20 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
         }
     }
 
-    fun setCountdown(timeControl1: Int, timeControl2: Int, inc1: Int, inc2: Int) {
-        pauseClock(WHITE)
-        pauseClock(BLACK)
-        clockWhite = get { parametersOf(WHITE, timeControl1, inc1) }
-        clockBlack = get { parametersOf(BLACK, timeControl2, inc2) }
-        lastRunningClock = null
-        view?.restartButtons(clockWhite.timer.secondsToHMS(), clockBlack.timer.secondsToHMS())
-        view?.enableSetButton(true)
-        view?.enableHomeButton(true)
-        view?.setPausePlayState(PausePlayState.IDLE)
+    fun setCountdown() {
+        settingsDisposable = logic.getStoredSettings(get()).subscribe({ (timeControl, inc) ->
+            pauseClock(WHITE)
+            pauseClock(BLACK)
+            clockWhite = get { parametersOf(WHITE, timeControl, inc) }
+            clockBlack = get { parametersOf(BLACK, timeControl, inc) }
+            lastRunningClock = null
+            view?.restartButtons(clockWhite.timer.secondsToHMS(), clockBlack.timer.secondsToHMS())
+            view?.enableSetButton(true)
+            view?.enableHomeButton(true)
+            view?.setPausePlayState(PausePlayState.IDLE)
+        }, {
+            it.printStackTrace()
+        })
     }
 
     fun subscribe(view: ClockView) {
@@ -125,6 +130,7 @@ internal class ClockPresenter(private val logic: ClockLogic) : KoinComponent {
 
     fun unSubscribe() {
         view = null
+        settingsDisposable?.dispose()
         clockDisposers.forEach { (_, it) ->
             it?.dispose()
         }

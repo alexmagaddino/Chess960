@@ -1,6 +1,6 @@
 package com.alexm.chess960
 
-import com.alexm.chess960.clockpack.Clock
+import com.alexm.chess960.clockpack.vo.Clock
 import com.alexm.chess960.clockpack.ClockPreferences
 import com.alexm.chess960.clockpack.dialog.ClockSettingLogic
 import com.alexm.chess960.clockpack.dialog.ClockSettingPresenter

@@ -1,4 +1,4 @@
-package com.alexm.chess960.clockpack
+package com.alexm.chess960.clockpack.vo
 
 import com.alexm.chess960.ChessColor
 
