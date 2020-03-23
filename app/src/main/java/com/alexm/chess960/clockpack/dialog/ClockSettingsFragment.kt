@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.alexm.chess960.clockpack.ClockActivity
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.clock_settings_dialog.view.*
-import org.koin.android.ext.android.inject
+import org.koin.android.scope.lifecycleScope
 
 
 /**
@@ -20,7 +20,7 @@ import org.koin.android.ext.android.inject
  */
 class ClockSettingsFragment : Fragment(), ClockSettingsView {
 
-    private val presenter by inject<ClockSettingPresenter>()
+    private val presenter by lifecycleScope.inject<ClockSettingPresenter>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =

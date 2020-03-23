@@ -14,11 +14,11 @@ import com.alexm.chess960.clockpack.mvp.ClockPresenter
 import com.alexm.chess960.clockpack.mvp.ClockView
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.activity_clock.*
-import org.koin.android.ext.android.inject
+import org.koin.android.scope.lifecycleScope
 
 class ClockActivity : AppCompatActivity(), ClockView {
 
-    private val presenter by inject<ClockPresenter>()
+    private val presenter by lifecycleScope.inject<ClockPresenter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

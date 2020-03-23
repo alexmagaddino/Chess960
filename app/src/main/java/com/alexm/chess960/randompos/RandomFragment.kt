@@ -9,12 +9,12 @@ import com.alexm.chess960.randompos.mvp.RandomPresenter
 import com.alexm.chess960.randompos.mvp.RandomView
 import com.example.chess960.chess960.R
 import kotlinx.android.synthetic.main.fragment_random.view.*
-import org.koin.android.ext.android.inject
+import org.koin.android.scope.lifecycleScope
 
 class RandomFragment : Fragment(), RandomView {
 
     private lateinit var rootView: View
-    private val presenter by inject<RandomPresenter>()
+    private val presenter by lifecycleScope.inject<RandomPresenter>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
